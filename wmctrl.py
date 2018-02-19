@@ -27,7 +27,7 @@ class Window(BaseWindow):
 		"""Returns all windows matching 'pattern'."""
 		wins = [win for win in cls.list() if re.match(pattern, win.wm_name) is not None]
 		if on_current_desktop:
-			wins = [win for win in wins if win.desktop == _wm_current_desktop()]
+			wins = [win for win in wins if win.desktop == current_desktop()]
 		return wins
 	
 	def activate(self):
@@ -38,7 +38,7 @@ class Window(BaseWindow):
 		"""Move the window to the current desktop, then activate it."""
 		subprocess.call(['wmctrl', '-id', '-R', self.id])
 
-def _wm_current_desktop():
+def current_desktop():
 	out = subprocess.check_output(['wmctrl', '-d'])
 	for line in out.splitlines():
 		parts = line.split()
