@@ -32,6 +32,8 @@ class Window(BaseWindow):
 	
 	def activate(self):
 		"""Activate (bring to front and give focus to) the window."""
+		if not (self.id in [w.id for w in self.list()]):
+			raise Exception("Attemped to activate non-existant window.")
 		subprocess.call(['wmctrl', '-id', '-a', self.id])
 
 	def move_to_current_desktop_and_activate(self):
