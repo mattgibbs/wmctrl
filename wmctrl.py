@@ -42,6 +42,8 @@ class Window(BaseWindow):
 
 def current_desktop():
 	out = subprocess.check_output(['wmctrl', '-d'])
+	if type(out) is not str:  # Python3 comes back as bytes
+		out = out.decode()
 	for line in out.splitlines():
 		parts = line.split()
 		if parts[1] == "*":
