@@ -2,6 +2,12 @@ import os
 import subprocess
 from collections import namedtuple
 import re
+import shutil
+
+# If wmctrl is not available anywhere on the PATH, then we should immediately fail to import this module
+# as any attempts by clients to use it later on will fail
+if not shutil.which('wmctrl'):
+    raise ImportError('Cannot import "wmctrl" python module, wmctrl executable was not found on the system PATH')
 
 #This code is heavily inspired by a wmctrl module by Antonio Cuni: bitbucket.org/antocuni/wmctrl
 # His module does a ton of stuff I don't care about though, so I've built mine from scratch.
